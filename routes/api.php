@@ -2,4 +2,7 @@
 
 use App\Http\Controllers\UserController;
 
-Route::apiResource('users', UserController::class)->middleware('validate.user');
+Route::middleware(['log.requests'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::apiResource('users', UserController::class)->middleware('validate.user');
+});
